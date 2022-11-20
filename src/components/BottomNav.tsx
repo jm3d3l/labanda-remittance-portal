@@ -1,20 +1,37 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import HomeIcon from '@mui/icons-material/Home';
+import MonetizationIcon from '@mui/icons-material/MonetizationOn';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
+import { Box, Fab, makeStyles } from '@mui/material';
 
-const useStyles = makeStyles({
+const style = {
     root: {
-        width: 500,
+        width: '100%',
+        display: 'flex',
+        position: 'fixed',
+        bottom: 0,
     },
-});
+};
+
+const routes = [
+    {
+        label: 'Home',
+        icon: <HomeIcon />,
+        url: '/',
+    },
+    {
+        label: 'Transaction',
+        icon: <MonetizationIcon />,
+        url: '/transaction',
+    },
+];
 
 export default function BottomNav() {
-    const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    const navigate = useNavigate();
 
     return (
         <BottomNavigation
@@ -23,11 +40,16 @@ export default function BottomNav() {
                 setValue(newValue);
             }}
             showLabels
-            className={classes.root}
+            sx={style.root}
         >
-            <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-            <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+            {routes.map(({ label, icon, url }) => (
+                <BottomNavigationAction
+                    key={label}
+                    onClick={() => navigate(url)}
+                    label={label}
+                    icon={icon}
+                />
+            ))}
         </BottomNavigation>
     );
 }

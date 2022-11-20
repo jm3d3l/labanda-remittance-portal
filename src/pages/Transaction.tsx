@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Transaction(props) {
+function Transaction() {
     return (
         <div>
             <h2>Transaction..............</h2>
