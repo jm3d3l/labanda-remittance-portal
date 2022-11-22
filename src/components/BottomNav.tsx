@@ -53,3 +53,5 @@ export default function BottomNav() {
         </BottomNavigation>
     );
 }
+
+console.log('test commit');
